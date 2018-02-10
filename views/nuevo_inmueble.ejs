@@ -1,0 +1,43 @@
+<%- include('cabecera'); %>
+
+<h1>Formulario de alta de nuevo inmueble</h1>
+
+<% if (error) { %> 
+<div id="nuevoError" class="alert alert-danger">
+        Error añadiendo el inmueble <br /><%= error %>
+</div>
+<% } %>
+<form action="/inmuebles" enctype="multipart/form-data" method="POST">
+        <div class="form-group">
+        <label for="descripcion">Descripcion:</label>
+        <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+        </div>
+        <div class="form-group">
+                <label for="tipo">Tipo inmueble:</label>
+                <select name="tipo" id="tipo">
+                        <% tipos.forEach( tipo => {%>
+                                <option value="<%= tipo.id %>">
+                                        <%= tipo.tipo %> 
+                                </option>
+                        <% }); %>
+                </select>
+        </div>
+        <div class="form-group">
+                <label for="habitaciones">Número de habitaciones:</label>
+                <input type="number" class="form-control" id="habitaciones" name="numeroHabitaciones" />
+        </div>
+        <div class="form-group">
+                <label for="superficie">Superficie:</label>
+                <input type="number" class="form-control" id="superficie" name="superficie" />
+        </div>
+        <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" class="form-control" id="precio" name="precio" />
+        </div>
+        <div class="form-group">
+                <label for="imagen">Imagen:</label>
+                <input type="file" class="form-control" id="imagen" name="imagen" />
+        </div>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+</form>
+<%- include('pie'); %>

@@ -1,0 +1,17 @@
+<%- include('cabecera'); %>
+<h1>Ficha de inmueble</h1>
+<% if (inmueble) {  %>
+    <div class="card mb-3">
+            <img class="card-img-top" src="/uploads/<%= inmueble.imagen %>" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= inmueble.tipo.tipo %></h5>
+              <p class="card-text"><%= inmueble.descripcion %></p>
+              <p class="card-text">Superficie: <%= inmueble.superficie %></p>
+              <p class="card-text">Habitaciones: <%= inmueble.numeroHabitaciones %></p>
+              <p class="card-text">Precio: <%= inmueble.precio %>€</p>
+            </div>
+          </div>
+<% } else { %>
+    <p>No se ha encontrado el inmueble</p>
+<% } %>
+<%- include('pie'); %>

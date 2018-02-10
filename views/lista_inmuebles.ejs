@@ -1,0 +1,52 @@
+<%- include('cabecera'); %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div action="/inmuebles" method="GET" class="row text-light">
+        <div class="form-group col-md-3">
+            <label for="precio">Precio max:</label>
+            <input type="number" name="precio" value="0" id="precio">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="superficie">Metros min:</label>
+            <input type="number" name="superficie" value="0" id="superficie">
+        </div>
+        <div class="form-group col-md-3  text-right">
+            <label for="habitaciones">Habitaciones min:</label>    
+            <input type="number" name="habitaciones" value="0" id="habitaciones">
+        </div>
+        <div class="col-md-3 text-right">
+            <button class="btn btn-primary mt-4" onclick="send()" type="submit">Buscar</button>
+        </div>
+    </div> 
+</nav>
+<h1>Listado de inmuebles</h1>
+<% if (typeof filtros != 'undefined') {  %>
+    <% if (filtros.precio > 0) {  %><p>Precio maximo: <%= filtros.precio %>€</p><% }; %>
+    <% if (filtros.numeroHabitaciones > 0) {  %><p>Habitaciones: <%= filtros.numeroHabitaciones %> o más</p><% }; %>
+    <% if (filtros.superficie > 0) {  %><p>Superficie: <%= filtros.superficie %>m2 o más</p><% }; %>
+<% }; %>
+
+<% if (inmuebles.length > 0) {  %>
+    <div class="card-deck">
+    <% inmuebles.forEach( inmueble => {%>
+        <div class="card mt-4" style="min-width: 18rem;">
+            <img class="card-img-top" src="/uploads/<%= inmueble.imagen %>" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title"><%= inmueble.tipo.tipo %></h5>
+                <p class="card-text"><%= inmueble.descripcion %></p>
+                <a href="/inmuebles/<%= inmueble.id %>" class="btn btn-primary">Ver más</a>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6"><%= inmueble.superficie %>m2</div>
+                    <div class="col-md-6 text-right"><%= inmueble.precio %>€</div>
+
+                </div>
+                
+            </div>
+        </div>
+    <% }); %>
+    </div>
+<% } else { %>
+    <p class="alert alert-info">No se han encontrado inmuebles</p>
+<% } %>
+<%- include('pie'); %>
