@@ -1,3 +1,7 @@
+/**
+ * @author Ivan Galan Pastor
+ * Tratamiento de las rutas relacionadas con los tipos de inmuebles
+ */
 const express = require('express');
 let Tipo = require('../models/tipo');
 let router = express.Router();

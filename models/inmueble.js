@@ -1,3 +1,7 @@
+/**
+ * @author Ivan Galan Pastor
+ * Creación del esquema de datos de los inmuebles
+ */
 const mongoose = require('mongoose');
 
 let inmuebleSchema = new mongoose.Schema({

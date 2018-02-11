@@ -1,3 +1,7 @@
+/**
+ * @author Ivan Galan Pastor
+ * Tratamiento de las rutas genericas
+ */
 const express = require('express');
 let router = express.Router();
 let Tipo = require('../models/tipo');

@@ -1,3 +1,7 @@
+/**
+ * @author Ivan Galan Pastor
+ * Conexión a la base de datos y redirección a los routers pertinentes
+ */
 const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
@@ -19,5 +23,10 @@ app.use('/', express.static('./public'));
 app.use('/', index);
 app.use('/inmuebles', inmuebles);
 app.use('/tipos', tipos);
+
+app.use( (req, res, next) => {
+    res.status(404);
+    res.render('404', { url: req.url });
+});
 
 app.listen(8080);

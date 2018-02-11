@@ -1,7 +1,13 @@
+/**
+ * @author Ivan Galan Pastor
+ * Tratamiento de las rutas relacionadas con los inmuebles
+ */
 const express = require('express');
 let Inmueble = require('../models/inmueble');
 let Tipo = require('../models/tipo');
 let router = express.Router();
+
+let fs = require('fs');
 
 router.get('/', (req, res) => {
     Inmueble.find().populate('tipo').then( resultado => {
@@ -85,10 +91,13 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Inmueble.findOneAndRemove(req.params.id).then( resultado => {
-        res.render('lista_inmuebles', {resultado: resultado});
+    Inmueble.findByIdAndRemove(req.params.id).then( resultado => {
+        if (resultado.imagen != 'default.jpg' && fs.existsSync('public/uploads/' + resultado.imagen)) {
+            fs.unlink('public/uploads/' + resultado.imagen, () => null);
+        }
+        res.send({ok:true, resultado: resultado});
     }).catch( error => {
-        res.render('lista_inmuebles', {error: error});
+        res.send({ok: false, resultado: error});
     });
 });
 

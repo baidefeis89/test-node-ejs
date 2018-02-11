@@ -1,3 +1,7 @@
+/**
+ * @author Ivan Galan Pastor
+ * Creación del esquema de datos de los tipos de inmuebles
+ */
 const mongoose = require('mongoose');
 
 let tipoSchema = new mongoose.Schema({
