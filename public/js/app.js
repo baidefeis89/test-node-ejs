@@ -1,6 +1,6 @@
 let req = new XMLHttpRequest();
 
-req.open('GET', 'http://localhost:8080/tipos', true);
+req.open('GET', '/tipos', true);
 req.send(null);
 
 req.onreadystatechange = evnt => {
@@ -19,7 +19,7 @@ function send() {
     let habitaciones = document.getElementById('habitaciones').value;
     let superficie = document.getElementById('superficie').value;
     
-    window.location.href= `http://localhost:8080/inmuebles/${precio}/${superficie}/${habitaciones}`;
+    window.location.href= `/inmuebles/${precio}/${superficie}/${habitaciones}`;
 }
 
 function submitCreate() {
@@ -49,7 +49,7 @@ function eliminar() {
     let peticion = new XMLHttpRequest();
     let id = document.getElementById('referencia').textContent;
 
-    peticion.open('DELETE', 'http://localhost:8080/inmuebles/' + id, true);
+    peticion.open('DELETE', '/inmuebles/' + id, true);
     peticion.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
     peticion.send(null);
     
@@ -63,13 +63,13 @@ function eliminar() {
                 body.innerHTML = 'Inmueble borrado con éxito.';
                 buttons.innerHTML = '';
 
-                setTimeout( () => window.location.href = 'http://localhost:8080/inmuebles', 1000);
+                setTimeout( () => window.location.href = '/inmuebles', 1000);
             } else {
                 body.innerHTML = '<span class="alert alert-danger">No se ha podido borrar.</span>';
             }
             console.log(res);
         } else if(peticion.readyState == 4 && peticion.status == 401) {
-            window.location.href = 'http://localhost:8080/unauthorized';
+            window.location.href = '/unauthorized';
         }
     }
 }
@@ -82,7 +82,7 @@ function submitLogin() {
     
     let peticion = new XMLHttpRequest();
 
-    peticion.open('POST', 'http://localhost:8080/usuarios/login', true);
+    peticion.open('POST', '/usuarios/login', true);
     peticion.setRequestHeader('Content-type','application/json');
     peticion.send(JSON.stringify(data));
     
@@ -92,7 +92,7 @@ function submitLogin() {
 
             if (respuesta.ok) {
                 localStorage.setItem('token', respuesta.token);
-                window.location.href = "http://localhost:8080/";
+                window.location.href = "/";
             } else {
                 let alert = document.getElementById('errormsg');
                 alert.classList.add('alert-danger');
@@ -115,7 +115,7 @@ function registrar() {
 
     let peticion = new XMLHttpRequest();
 
-    peticion.open('POST', 'http://localhost:8080/usuarios/registro', true);
+    peticion.open('POST', '/usuarios/registro', true);
     peticion.setRequestHeader('Content-type','application/json');
     peticion.send(JSON.stringify(data));
     
@@ -130,7 +130,7 @@ function registrar() {
                     console.log(respuesta.error);
                 }
             } catch(err) {
-                window.location.href="http://localhost:8080/login";
+                window.location.href="/login";
             }
         }
     }
