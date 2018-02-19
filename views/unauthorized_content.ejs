@@ -1,4 +1,4 @@
-<%- include('cabecera'); %>
+
 <style type="text/css">
     .error-template {padding: 40px 15px;text-align: center;}
     .error-actions {margin-top:15px;margin-bottom:15px;}
@@ -11,16 +11,14 @@
             <div class="error-template">
                 <h1>
                     Oops!</h1>
-                <h2>
-                    404 Not Found</h2>
+                <h2>Unauthorized</h2>
                 <div class="error-details">
-                    Sorry, an error has occured, Requested page not found!
+                    Sorry, you can not access this page!
                 </div>
                 <div class="error-actions">
-                    <a href="http://localhost:8080/inmuebles" class="btn btn-primary btn-lg"> Take Me Home </a>
+                    <a href="http://localhost:8080/login" class="btn btn-primary btn-lg"> Login </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<%- include('pie'); %>

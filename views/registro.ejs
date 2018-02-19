@@ -1,0 +1,24 @@
+<%- include('cabecera'); %>
+<div>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre"  />
+    </div>
+    <div class="form-group">
+            <label for="login">Login:</label>
+            <input type="text" class="form-control" id="login" name="login"  />
+    </div>
+    <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password"  />
+    </div>
+    <div class="form-group">
+            <label for="password2">Repetir password:</label>
+            <input type="password" class="form-control" id="password2" name="password2"  />
+    </div>
+    
+    <div class="alert" id="errorMsg"></div>
+    
+    <button class="btn btn-primary" onclick="registrar()">Registrar</button>
+</div>
+<%- include('pie'); %>

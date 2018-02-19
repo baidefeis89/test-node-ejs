@@ -3,6 +3,8 @@
  * Tratamiento de las rutas relacionadas con los inmuebles
  */
 const express = require('express');
+const passport = require('passport');
+
 let Inmueble = require('../models/inmueble');
 let Tipo = require('../models/tipo');
 let router = express.Router();
@@ -13,7 +15,6 @@ router.get('/', (req, res) => {
     Inmueble.find().populate('tipo').then( resultado => {
         res.render('lista_inmuebles', {inmuebles:resultado});
     }).catch( error => {
-        console.log(error);
         res.render('lista_inmuebles', {inmuebles: []});
     });
 });
@@ -60,7 +61,7 @@ router.get('/:precio/:superficie/:habitaciones', (req, res) => {
     })
 });
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate('jwt', {session: false, failureRedirect: '/unauthorized-content'}), (req, res) => {
     let img;
     if (req.files.imagen) {
         img = new Date().getTime() + '.jpg';
@@ -80,17 +81,17 @@ router.post('/', (req, res) => {
     });
 
     piso.save().then( resultado => {
-        res.render('ficha_inmueble', {inmueble:resultado});
+        res.render('ficha_inmueble_contenido', {inmueble:resultado});
     }).catch( error => {
         Tipo.find().then( resultado => {
-            res.render('nuevo_inmueble', {error: error, tipos: resultado});
+            res.render('formulario_inmueble', {error: error, tipos: resultado});
         }).catch( err => {
-            res.render('nuevo_inmueble', {error: error, tipos: []})
+            res.render('formulario_inmueble', {error: error, tipos: []})
         });
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     Inmueble.findByIdAndRemove(req.params.id).then( resultado => {
         if (resultado.imagen != 'default.jpg' && fs.existsSync('public/uploads/' + resultado.imagen)) {
             fs.unlink('public/uploads/' + resultado.imagen, () => null);
