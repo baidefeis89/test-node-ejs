@@ -12,10 +12,10 @@ const jwt = require('jsonwebtoken');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 
-const index = require('./routes/index');
-const tipos = require('./routes/tipos');
-const inmuebles = require('./routes/inmuebles');
-const usuarios = require('./routes/usuarios');
+const index = require(__dirname + '/routes/index');
+const tipos = require(__dirname + '/routes/tipos');
+const inmuebles = require(__dirname + '/routes/inmuebles');
+const usuarios = require(__dirname + '/routes/usuarios');
 
 const secreto = 'DespliegueNode';
 
@@ -37,7 +37,7 @@ app.set('view engine','ejs');
 app.use(fileUpload());
 app.use(bodyParser.json());
 
-app.use('/', express.static('./public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use('/', index);
 app.use('/inmuebles', inmuebles);

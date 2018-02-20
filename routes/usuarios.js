@@ -6,11 +6,11 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
-let Usuario = require('../models/usuario');
+let Usuario = require(__dirname + '/../models/usuario');
 let router = express.Router();
 
 //TODO req.body es undefined, probar con postman
-//si está correcto renderizar vista y mandar token???, si no mensaje error en misma vista
+//si está correcto renderi__dirname + z/../ar vista y mandar token???, si no mensaje error en misma vista
 router.post('/login', (req, res) => {
     if (!req.body.login) res.send({ok: false, error: 'Debe rellenar el campo login'});
     else if (!req.body.password) res.send({ok: false, error: 'Debe rellenar el campo password'});
@@ -38,7 +38,7 @@ router.post('/registro', (req, res) => {
         });
     
         usuario.save().then( 
-            resultado => res.render('login'),
+            resultado => res.render(__dirname + '/../views/login'),
             error => res.send({error: error.errmsg})
         )
     }

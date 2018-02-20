@@ -3,7 +3,7 @@
  * Tratamiento de las rutas relacionadas con los tipos de inmuebles
  */
 const express = require('express');
-let Tipo = require('../models/tipo');
+let Tipo = require(__dirname + '/../models/tipo');
 let router = express.Router();
 
 router.get('/', (req, res) => {

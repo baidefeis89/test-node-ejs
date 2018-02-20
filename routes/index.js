@@ -4,33 +4,33 @@
  */
 const express = require('express');
 let router = express.Router();
-let Tipo = require('../models/tipo');
+let Tipo = require(__dirname + '/../models/tipo');
 
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render(__dirname + '/../views/index');
 });
 
 router.get('/login', (req, res) => {
-    res.render('login');
+    res.render(__dirname + '/../views/login');
 });
 
 router.get('/registro', (req, res) => {
-    res.render('registro');
+    res.render(__dirname + '/../views/registro');
 });
 
 router.get('/unauthorized', (req, res) => {
-    res.render('unauthorized');    
+    res.render(__dirname + '/../views/unauthorized');    
 });
 
 router.get('/unauthorized-content', (req, res) => {
-    res.render('unauthorized_content');    
+    res.render(__dirname + '/../views/unauthorized_content');    
 });
 
 router.get('/nuevo_inmueble', (req, res) => {
     Tipo.find().then( resultado => {
-        res.render('nuevo_inmueble', {error: false, tipos: resultado});
+        res.render(__dirname + '/../views/nuevo_inmueble', {error: false, tipos: resultado});
     }).catch( error => {
-        res.render('nuevo_inmueble', {error: false, tipos: []})
+        res.render(__dirname + '/../views/nuevo_inmueble', {error: false, tipos: []})
     });
 });
 

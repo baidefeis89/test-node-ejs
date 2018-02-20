@@ -5,33 +5,33 @@
 const express = require('express');
 const passport = require('passport');
 
-let Inmueble = require('../models/inmueble');
-let Tipo = require('../models/tipo');
+let Inmueble = require(__dirname + '/../models/inmueble');
+let Tipo = require(__dirname + '/../models/tipo');
 let router = express.Router();
 
 let fs = require('fs');
 
 router.get('/', (req, res) => {
     Inmueble.find().populate('tipo').then( resultado => {
-        res.render('lista_inmuebles', {inmuebles:resultado});
+        res.render(__dirname + '/../views/lista_inmuebles', {inmuebles:resultado});
     }).catch( error => {
-        res.render('lista_inmuebles', {inmuebles: []});
+        res.render(__dirname + '/../views/lista_inmuebles', {inmuebles: []});
     });
 });
 
 router.get('/tipo/:id', (req, res) => {
     Inmueble.find({tipo: req.params.id}).populate('tipo').then( resultado => {
-        res.render('lista_inmuebles', {inmuebles:resultado});
+        res.render(__dirname + '/../views/lista_inmuebles', {inmuebles:resultado});
     }).catch( error => {
-        res.render('lista_inmuebles', []);
+        res.render(__dirname + '/../views/lista_inmuebles', []);
     });
 });
 
 router.get('/:id', (req, res) => {
     Inmueble.findById(req.params.id).populate('tipo').then( resultado => {
-        res.render('ficha_inmueble', {inmueble:resultado});
+        res.render(__dirname + '/../views/ficha_inmueble', {inmueble:resultado});
     }).catch( error => {
-        res.render('ficha_inmueble', {});
+        res.render(__dirname + '/../views/ficha_inmueble', {});
     });
 });
 
@@ -55,7 +55,7 @@ router.get('/:precio/:superficie/:habitaciones', (req, res) => {
     };
 
     Inmueble.find(JSON.parse(query)).populate('tipo').then( resultado => {
-        res.render('lista_inmuebles', {inmuebles: resultado, filtros: filtros});
+        res.render(__dirname + '/../views/lista_inmuebles', {inmuebles: resultado, filtros: filtros});
     }).catch( error => {
         console.log(error);
     })
@@ -81,12 +81,12 @@ router.post('/', passport.authenticate('jwt', {session: false, failureRedirect: 
     });
 
     piso.save().then( resultado => {
-        res.render('ficha_inmueble_contenido', {inmueble:resultado});
+        res.render(__dirname + '/../views/ficha_inmueble_contenido', {inmueble:resultado});
     }).catch( error => {
         Tipo.find().then( resultado => {
-            res.render('formulario_inmueble', {error: error, tipos: resultado});
+            res.render(__dirname + '/../views/formulario_inmueble', {error: error, tipos: resultado});
         }).catch( err => {
-            res.render('formulario_inmueble', {error: error, tipos: []})
+            res.render(__dirname + '/../views/formulario_inmueble', {error: error, tipos: []})
         });
     });
 });
