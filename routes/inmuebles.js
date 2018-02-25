@@ -65,7 +65,7 @@ router.post('/', passport.authenticate('jwt', {session: false, failureRedirect: 
     let img;
     if (req.files.imagen) {
         img = new Date().getTime() + '.jpg';
-        req.files.imagen.mv('public/uploads/' + img, err => {
+        req.files.imagen.mv(__dirname + '/../public/uploads/' + img, err => {
             if (err) console.log('Error al subir la imagen: ',err);
         })
     } else 
@@ -93,8 +93,8 @@ router.post('/', passport.authenticate('jwt', {session: false, failureRedirect: 
 
 router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     Inmueble.findByIdAndRemove(req.params.id).then( resultado => {
-        if (resultado.imagen != 'default.jpg' && fs.existsSync('public/uploads/' + resultado.imagen)) {
-            fs.unlink('public/uploads/' + resultado.imagen, () => null);
+        if (resultado.imagen != 'default.jpg' && fs.existsSync(__dirname + '/../public/uploads/' + resultado.imagen)) {
+            fs.unlink(__dirname + '/../public/uploads/' + resultado.imagen, () => null);
         }
         res.send({ok:true, resultado: resultado});
     }).catch( error => {

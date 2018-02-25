@@ -49,4 +49,5 @@ app.use( (req, res, next) => {
     res.render('404', { url: req.url });
 });
 
-module.exports.app = app;
+//module.exports.app = app;
+app.listen(8080);
