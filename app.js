@@ -46,7 +46,7 @@ app.use('/usuarios', usuarios);
 
 app.use( (req, res, next) => {
     res.status(404);
-    res.render('404', { url: req.url });
+    res.render(__dirname + '/views/404', { url: req.url });
 });
 
 module.exports.app = app;
